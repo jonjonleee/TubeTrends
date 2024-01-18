@@ -1,0 +1,120 @@
+<!-- HTML FORM REFERENCE: https://www.tutsmake.com/node-js-express-insert-data-from-form-into-mysql-database/ -->
+<!-- READING DATA INTO HTML: https://codingstatus.com/how-to-display-data-from-mysql-database-table-in-node-js/ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Edit User Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+    
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/trends">
+            Home
+          </a>
+
+          <a class="navbar-item" href="/favorites">
+            Favorites
+          </a>
+              
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <p class="px-1"> Welcome <%= current_name %></p>
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/editprofile">
+              Account Details
+            </a>
+            <a class="navbar-item" href="/logout">
+              Logout
+            </a>
+            <hr class="navbar-divider">
+          </div>
+        </div>
+        
+      </div>
+    </nav>
+    <section class="section">
+    <div class="container">
+      <div>
+        <div class="card">
+          <div class="card-content">
+              <p class="title is-4">
+                  Edit Account Details
+              </p>
+              <form action="edit_profile_details" method="POST">
+                  <!-- First Name Entry -->
+                  <div class="field">
+                      <label class="label" for="firstName">First Name</label>
+                      <div class="control">
+                          <input type="text" class="input" id="f_name" required="required" placeholder="Enter first name" name="f_name" value="<%= user.FirstName %>">
+                      </div>
+                  </div>
+                  <!-- Last Name Entry -->
+                  <div class="field">
+                      <label class="label" for="lastName">Last Name</label>
+                      <div class="control">
+                          <input type="text" class="input" id="l_name" required="required" placeholder="Enter last name" name="l_name" value="<%= user.LastName %>">
+                      </div>
+                  </div>
+                  <!-- Email Entry -->
+                  <div class="field">
+                      <label class="label" for="email">Email address</label>
+                      <div class="control">
+                          <input type="email" class="input" id="email" name="email" required="required" placeholder="Enter email" value="<%= user.Email %>">
+                      </div>
+                  </div>
+                  <!-- Password Entry -->
+                  <div class="field">
+                      <label class="label" for="password">Password</label>
+                      <div class="control">
+                          <input type="text" class="input" id="password" name="password" required="required" placeholder="Enter password" value="<%= user.Password %>">
+                      </div>
+                  </div>
+                  <!-- Birthday Entry -->
+                  <div class="field">
+                      <label class="label" for="birthday">Birthday</label>
+                      <div class="control">
+                          <input type="date" class="input" id="birthday" name="birthday" required="required" placeholder="Enter birthday" value="<%= birthday %>">
+                      </div>
+                  </div>
+                  <div class="field">
+                    <div class="field is-grouped">
+                      <div class="control">
+                          <button type="submit" class="button is-primary">Submit</button>
+                      </div>
+                  </div>
+                  </div>
+              </form>
+      
+              <div id='create' class="card-body">
+                  <form action='delete_profile' method ='POST'>
+                      <div class="field is-grouped is-grouped-right">
+                          <div class="control">
+                              <button type="submit" class="button is-danger">Delete Profile</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  </body>
+</html>

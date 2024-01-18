@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trends!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+    
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/trends">
+            Home
+          </a>
+
+          <a class="navbar-item">
+            Favorites
+          </a>
+              
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <p class="px-1"> Welcome <%= current_name %></p>
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/editprofile">
+              Account Details
+            </a>
+            <a class="navbar-item" href="/logout">
+              Logout
+            </a>
+            <hr class="navbar-divider">
+          </div>
+        </div>
+        
+      </div>
+    </nav>
+  <section class="section">
+        <div class="tile is-parent">
+          <article class="tile is-child notification is-link">
+            <nav class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <p class="title">Table Data</p>
+                </div>
+            </div>
+            </nav>
+            <div class="content">
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Video Title</th>
+                        <th>Channel Title</th>
+                        <th>Category</th>
+                        <th>Percentile</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Video Title</th>
+                        <th>Channel Title</th>
+                        <th>Category</th>
+                        <th>Percentile</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <% items.forEach(function(item, index) { %>
+                        <tr>
+                            <td><%= index + 1 %></td> 
+                            <td><p class="subtitle is-centered"><%= item.title %></p></td>
+                            <td><p class="subtitle is-centered"><%= item.channel %></p></td>
+                            <td><p class="subtitle is-centered"><%= item.category %></p></td>
+                            <td><p class="subtitle is-centered"><%= item.percentile %></p></td>
+                            <td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            </div>
+          </article>
+        </div>
+  </section>
+  </body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trends!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+    
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+
+          <a class="navbar-item" href="/favorites">
+            Favorites
+          </a>
+              
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <p class="px-1"> Welcome <%= current_name %></p>
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/editprofile">
+              Account Details
+            </a>
+            <a class="navbar-item" href="/logout">
+              Logout
+            </a>
+            <hr class="navbar-divider">
+          </div>
+        </div>
+        
+      </div>
+    </nav>
+  <section class="section">
+    <div class="tile is-ancestor">
+      <div class="tile is-vertical is-8">
+        <div class="tile">
+          <div class="tile is-parent is-vertical">
+            <article class="tile is-child notification is-primary">
+              <p class="title">Top Video of the Day is...</p>
+              <div class="content has-text-centered">
+                <% items2.forEach(function(item) { %>
+                  <h5 class="heading has-text-light"><%= item.title %></h5>
+                <% }); %>
+              </div>
+              <nav class="level">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Likes</p>
+                    <% items2.forEach(function(item) { %>
+                      <p class="title"><%= item.likes %></p>
+                  <% }); %>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Views</p>
+                    <% items2.forEach(function(item) { %>
+                      <p class="title"><%= item.views %></p>
+                  <% }); %>
+                  </div>
+                </div>
+              </nav>
+            </article>
+          </div>
+          <div class="tile is-parent">
+            <article class="tile is-child notification is-info">
+              <p class="title">Check out This Category!</p>
+              <br>
+              <div class="content has-text-centered">
+                <% items4.forEach(function(item) { %>
+                  <h1 class="heading has-text-light"><%= item.category %></h1>
+                <% }); %>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child notification is-link">
+            <nav class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <p class="title">Table Data</p>
+                </div>
+              </div>
+              <!-- Left side -->
+              <div class="level-right">
+                <div class="level-item">
+                  <form action="/search" method="post">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" name="category" placeholder="Search by category">
+                        </div>
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Search</button>
+                        </div>
+                        <div class="control">
+                            <!-- Add a reset button to clear the search -->
+                            <button class="button is-light" type="button" onclick="resetSearch()">Reset</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- JavaScript function to reset the search -->
+                <script>
+                    function resetSearch() {
+                        // Find the input field by name and set its value to an empty string
+                        document.querySelector('input[name="category"]').value = '';
+                        // Submit the form to trigger the search with an empty category
+                        document.querySelector('form').submit();
+                    }
+                </script>
+                </div>
+              </div>
+            </nav>
+            <div class="content" style="height:600px;overflow-y:scroll;position: relative;">
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Video Title</th>
+                        <th>Channel Title</th>
+                        <th>Category</th>
+                        <th>Favorite</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Video Title</th>
+                        <th>Channel Title</th>
+                        <th>Category</th>
+                        <th>Favorite</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                  <form action="user_favorites" method="POST">
+                    <% items3.forEach(function(item, index) { %>
+                    
+                        <tr>
+                            <td><%= index + 1 %></td> 
+                            <td><p class="subtitle is-centered"><%= item.title %></p></td>
+                            <td><p class="subtitle is-centered"><%= item.channel %></p></td>
+                            <td><p class="subtitle is-centered"><%= item.category %></p></td>
+                            <td>
+                              <input type="checkbox" class="form-control col-lg-9" name="<%= item.id %>" id="<%= item.id %>"  <% if (items5.includes(item.id)) { %>checked<% } %>
+                          </td>
+                        </tr>
+                      
+                    <% }); %>
+                    <button type="submit" class="button">Save</button>
+                  </form>
+
+                </tbody>
+            </table>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-danger">
+          <div class="content is-medium">
+            <p class="title">Top Channels of the Day</p>
+            <div class="tiles-container">
+              <ol type="1" class="has-text-light">
+              <% items.forEach(function(item) { %>
+                  <li><h3 class="has-text-light"><%= item.channel %></h3></li>
+              <% }); %>
+            </ol>
+           </div>
+          </div>
+        </article>
+      </div>
+      
+    </div>
+  </section>
+  <script>
+          // DELETE LATER
+          function getCheckboxes() {
+                      let checkboxes  = document.getElementsByTagName('input');
+                      for (var c = 0; c < checkboxes.length; c++){
+                        if (checkboxes[c].type == "checkbox"){
+                            console.log("Checked", checkboxes[c].id);
+                          
+                        }
+                      }
+                    }
+          getCheckboxes();
+  </script>
+  </body>
+</html>
